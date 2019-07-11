@@ -3,13 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-num_state_vars = 4
-
 class Agent:
-	def __init__(self, policy=(np.random.randn(num_state_vars), np.random.randn()), score=0, choices=2):
+	def __init__(self, policy=(np.random.randn(4), np.random.randn()), score=0, choices=2, state_vars=4):
 		self.score = score
 		self.policy = policy
 		self.choices = choices
+		self.num_state_vars = state_vars
 
 	def act(self, obs):
 		z = 0
@@ -24,7 +23,7 @@ class Agent:
 		return int(np.floor(x)) # make discrete
 
 	def blur(self):
-		return Agent((self.policy[0] + np.random.randn(num_state_vars), self.policy[1] + np.random.randn()), choices=self.choices)
+		return Agent((self.policy[0] + np.random.randn(self.num_state_vars), self.policy[1] + np.random.randn()), choices=self.choices, state_vars=self.num_state_vars)
 
 
 
@@ -35,7 +34,7 @@ lmbda = 12
 mu = lmbda // 3 # mu must divide lambda
 
 generations = 50
-population = [Agent(choices=env.action_space.n)] * lmbda
+population = [Agent(choices=env.action_space.n, state_vars=env.observation_space.shape[0])] * lmbda
 
 best_of_each_gen = []
 
