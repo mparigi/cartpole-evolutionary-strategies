@@ -42,3 +42,11 @@ action = floor(A * σ(w_1*o_1 + w_2*o_2 + ... + w_N*o_N + b))
 This weight/bias to output scenario can be viewed as a neural network from the inputs directly to a single output (which is then mapped to the discrete action space) with no hidden layers.
 
 ```
+
+## Output Explanation
+
+Every generation, the scores of each individual of the population is printed,
+  along with the score of the best performing individual, and the average score
+  across the population.
+  
+At the end of the program, a graph is displayed of the *best* score of each population over the generations.
