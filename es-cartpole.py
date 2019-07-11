@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-num_state_vars = 2
+num_state_vars = 4
 
 class Agent:
 	def __init__(self, policy=(np.random.randn(num_state_vars), np.random.randn()), score=0, choices=2):
@@ -23,10 +23,9 @@ class Agent:
 		x *= n # scale up to number of choices
 		return int(np.floor(x)) # make discrete
 
+	def blur(self):
+		return Agent((self.policy[0] + np.random.randn(num_state_vars), self.policy[1] + np.random.randn()), choices=self.choices)
 
-
-def blur_policy(policy=(np.zeros(num_state_vars), 0)):
-	return (policy[0] + np.random.randn(num_state_vars), policy[1] + np.random.randn())
 
 
 
@@ -45,7 +44,7 @@ for generation in range(generations):
 	for individual in population:
 		observation = env.reset()
 		for t in range(1000):
-			env.render()
+			# env.render()
 			action = individual.act(observation)
 			observation, reward, done, info = env.step(action)
 			if done:
@@ -68,7 +67,7 @@ for generation in range(generations):
 	# each parent can produce children by blurring themselves
 	for parent in mu_best:
 		for _ in range(num_children):
-			new_population.append(Agent(blur_policy(parent.policy), 0, choices=env.action_space.n))
+			new_population.append(parent.blur())
 	population = new_population
 
 
