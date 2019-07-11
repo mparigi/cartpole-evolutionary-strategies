@@ -23,6 +23,7 @@ These mu agents ("parents") each produce lambda / mu "children"
   To produce a child, the "parent" is blurred with random noise
 The children become the new population
 ```
+Note that this is not Lambda+Mu ES, which is elitist.
 
 An agent makes decisions using the following policy:
 
@@ -39,7 +40,8 @@ Stated mathematically,
 
 action = floor(A * σ(w_1*o_1 + w_2*o_2 + ... + w_N*o_N + b))
 
-This weight/bias to output scenario can be viewed as a neural network from the inputs directly to a single output (which is then mapped to the discrete action space) with no hidden layers.
+This weight/bias to output scenario can be viewed as a neural network from the inputs directly to a single output
+(which is then mapped to the discrete action space) with no hidden layers.
 
 ```
 
